@@ -11,10 +11,10 @@
 int main(void)
 {
 	uint8_t position = 0;
-	int found_primes[62];
-	for(uint8_t i = 2; i <= 300; i++) {
+	uint16_t found_primes[62];
+	for(uint16_t i = 2; i <= 300; i++) {
 		uint8_t is_prime = 1;
-		for(uint8_t j = 2; j < i; j++) {
+		for(uint16_t j = 2; j < i; j++) {
 			if(i % j == 0) {
 				is_prime = 0;
 			}
