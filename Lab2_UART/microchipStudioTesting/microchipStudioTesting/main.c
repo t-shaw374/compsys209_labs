@@ -15,7 +15,9 @@
 #define BAUD 9600
 #define UBRR_VAL ((F_CPU / (16UL * BAUD)) - 1)
 #define SEND_DELAY 500 //ms
-#define SEND_NUM 3
+#define SEND_NUM 345
+
+
 
 void usart_init(uint16_t ubrr) {
 	UCSR0B |= (1 << TXEN0 | 1 << UDRIE0);
@@ -53,8 +55,14 @@ int main(void)
 	
     while (1) 
     {
+			
+		uint8_t num_chars[] = {(SEND_NUM / 100) % 10, (SEND_NUM / 10) % 10, SEND_NUM % 10};
+		for(uint8_t i = 0; i < 3; i++) {
+			usart_transmit(num_chars[i] + 48);
+		}
+		
 		_delay_ms(SEND_DELAY);
-		usart_transmit(SEND_NUM + 48);
+		
     }
 }
 
