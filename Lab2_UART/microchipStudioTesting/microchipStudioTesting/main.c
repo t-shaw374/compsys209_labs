@@ -12,7 +12,7 @@
 #include "uart0.h"
 
 #define BAUD 9600
-#define UBRR_VAL ((F_CPU / (16UL * BAUD)) - 1)
+#define UBRR_VAL ((F_CPU / ((uint32_t)16 * BAUD)) - 1)
 #define SEND_DELAY 10000 //ms
 
 
