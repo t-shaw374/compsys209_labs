@@ -1,3 +1,17 @@
+[AC Analysis]
+{
+   Npanes: 1
+   {
+      traces: 1 {524290,0,"V(vfilter)"}
+      X: ('M',0,1,0,1e+06)
+      Y[0]: (' ',0,0.00630957344480193,4,1)
+      Y[1]: (' ',0,-90,9,-0)
+      Volts: (' ',0,0,1,1,0.2,3.2)
+      Log: 1 2 0
+      PltMag: 1
+      PltPhi: 1 0
+   }
+}
 [Transient Analysis]
 {
    Npanes: 1
