@@ -22,10 +22,10 @@ ISR(TIMER0_OVF_vect) {
 }
 
 ISR(TIMER0_COMPA_vect) {
-	static uint8_t count = 0;
-	count++;
-	if (count >= 10) {
-		count = 0;
+	static uint8_t num = 0;
+	num++;
+	if (num >= 10) {
+		num = 0;
 		toggle_led();
 	}
 	

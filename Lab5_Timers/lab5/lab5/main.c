@@ -43,8 +43,10 @@ int main(void)
 			uint16_t freq = 1000000/time_us;
 			sprintf(buffer, "%u\r\n",freq);
 			uart_tx_string(buffer);
+			}
 			
-		}
+			
+		
 		
 		
 		//if(timer0_check_Clear_compare()) {
