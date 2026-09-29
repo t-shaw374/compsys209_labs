@@ -11,8 +11,9 @@
 
 #include <stdint.h>
 
-void display_init(void);
-void send_next_character_to_display(uint8_t pattern);
+void init_display(void);
+void seperate_and_load_characters(uint16_t number, uint8_t decimal_pos);
+void send_next_character_to_display(void);
 
 
 

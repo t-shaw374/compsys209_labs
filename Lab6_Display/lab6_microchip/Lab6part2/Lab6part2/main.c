@@ -7,44 +7,44 @@
 
 #define F_CPU 2000000UL
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include <stdint.h>
-#include <avr/interrupt.h>
 #include "display.h"
 
-static const uint8_t digits[10] = {
-	0x3F, // 0
-	0x06, // 1
-	0x5B, // 2
-	0x4F, // 3
-	0x66, // 4
-	0x6D, // 5
-	0x7D, // 6
-	0x07, // 7
-	0x7F, // 8
-	0x6F  // 9
-};
+static volatile uint16_t counter = 0;
 
-#define SH_DS_pin 4
-#define SH_CP_pin 3
-#define SH_ST_pin 5
-#define DS1_pin 4
-#define DS2_pin 5
-#define DS3_pin 6
-#define DS4_pin 7
+static void timer0_init(void)
+{
+	TCCR0A = (1 << WGM01);              // CTC mode
+	TCCR0B = (1 << CS02) | (1 << CS00); // prescaler 256
+	OCR0A = 78;                          // ~10ms @ 2MHz
+	TIMSK0 = (1 << OCIE0A);             // enable compare-match interrupt
+}
+
+ISR(TIMER0_COMPA_vect)
+{
+	send_next_character_to_display();
+}
 
 int main(void)
 {
-	display_init();
-	PORTD |= (1<<DS1_pin) | (1<<DS2_pin) | (1<<DS3_pin);
-	PORTD &= ~(1<<DS4_pin);
-	
-	send_next_character_to_display(digits[7]);
-	
-	
-    /* Replace with your application code */
-    while (1) 
-    {
-    }
-}
+	init_display();
+	timer0_init();
+	sei();   // enable global interrupts
 
+	seperate_and_load_characters(counter, 4); // 4 = no decimal point shown
+
+	while (1)
+	{
+		_delay_ms(400);
+
+		counter++;
+		if (counter > 9999)
+		{
+			counter = 0;
+		}
+
+		seperate_and_load_characters(counter, 4);
+	}
+}
