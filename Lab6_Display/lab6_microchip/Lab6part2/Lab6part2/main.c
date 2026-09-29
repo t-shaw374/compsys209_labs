@@ -17,7 +17,7 @@ static volatile uint16_t counter = 0;
 static void timer0_init(void)
 {
 	TCCR0A = (1 << WGM01);              // CTC mode
-	TCCR0B = (1 << CS02) | (1 << CS00); // prescaler 256
+	TCCR0B = (1 << CS02); // prescaler 256
 	OCR0A = 78;                          // ~10ms @ 2MHz
 	TIMSK0 = (1 << OCIE0A);             // enable compare-match interrupt
 }
